@@ -394,7 +394,7 @@ impl FunctionInfo {
                     let flags = self.add_ref(condition);
                     if flags.contains(ControlFlags::REQUIRE_UNIFORM) && !is_uniform {
                         log::warn!("If condition {:?} needs uniformity", condition);
-                        return Err(AnalysisError::NonUniformControlFlow);
+                        //return Err(AnalysisError::NonUniformControlFlow);
                     }
                     let branch_uniform =
                         is_uniform && !flags.contains(ControlFlags::NON_UNIFORM_RESULT);
@@ -410,7 +410,7 @@ impl FunctionInfo {
                     let mut flags = self.add_ref(selector);
                     if flags.contains(ControlFlags::REQUIRE_UNIFORM) && !is_uniform {
                         log::warn!("Switch selector {:?} needs uniformity", selector);
-                        return Err(AnalysisError::NonUniformControlFlow);
+                        //return Err(AnalysisError::NonUniformControlFlow);
                     }
                     let branch_uniform =
                         is_uniform && !flags.contains(ControlFlags::NON_UNIFORM_RESULT);
@@ -467,7 +467,7 @@ impl FunctionInfo {
             };
 
             if flags.contains(ControlFlags::REQUIRE_UNIFORM) && !is_uniform {
-                return Err(AnalysisError::NonUniformControlFlow);
+                //return Err(AnalysisError::NonUniformControlFlow);
             }
             is_uniform &= !flags.contains(ControlFlags::MAY_EXIT);
             block_flags |= flags;

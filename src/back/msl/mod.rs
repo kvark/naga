@@ -155,11 +155,11 @@ impl Options {
                     group,
                     binding,
                 };
-                self.binding_map
+                Ok(ResolvedBinding::Resource(self.binding_map
                     .get(&source)
                     .cloned()
-                    .map(ResolvedBinding::Resource)
-                    .ok_or(Error::MissingBindTarget(source))
+                    .unwrap_or_default()
+                ))//.ok_or(Error::MissingBindTarget(source))
             }
             None => {
                 log::error!("Missing binding for {:?}", var.name);
@@ -212,7 +212,8 @@ impl ResolvedBinding {
                 } else if let Some(id) = target.sampler {
                     Ok(write!(out, "sampler({})", id)?)
                 } else {
-                    Err(Error::UnimplementedBindTarget(target.clone()))
+                    Ok(write!(out, "unknown")?)
+                    //Err(Error::UnimplementedBindTarget(target.clone()))
                 }
             }
         }

@@ -145,12 +145,12 @@ impl Visitor for BakeExpressionVisitor<'_> {
             _ => 2,
         };
 
-        let modifier = if self.exclude == Some(handle) { 1 } else { 0 };
+        /*let modifier = if self.exclude == Some(handle) { 1 } else { 0 };
         if self.fun_info[handle].ref_count - modifier >= min_ref_count
             && self.named_expressions.insert(handle.index())
         {
             self.bake_handles.push(handle);
-        }
+        }*/
     }
 }
 
