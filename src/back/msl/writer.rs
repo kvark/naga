@@ -1199,6 +1199,14 @@ impl<W: Write> Writer<W> {
                         let member_name = &self.names[&NameKey::StructMember(handle, index as u32)];
                         let base_name = &self.names[&NameKey::Type(member.ty)];
                         writeln!(self.out, "{}{} {};", INDENT, base_name, member_name)?;
+                        // quick and dirty way to figure out if we need this...
+                        if member.binding.is_none() {
+                            let pad =
+                                member.span - module.types[member.ty].inner.span(&module.constants);
+                            if pad != 0 {
+                                writeln!(self.out, "{}char _pad{}[{}];", INDENT, index, pad)?;
+                            }
+                        }
                     }
                     writeln!(self.out, "}};")?;
                 }
