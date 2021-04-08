@@ -347,7 +347,7 @@ pub fn preprocess(
                             error_token = lexer.next()
                         }
 
-                        panic!(error_message)
+                        panic!("{}", error_message)
                     }
                     "pragma" => {
                         let pragma_token = if token.line
